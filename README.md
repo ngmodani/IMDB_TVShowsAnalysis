@@ -1,5 +1,5 @@
 # IMDB top 250 TV Shows Analysis
-==========================================
+
 This repository shows python based data analysis of Most Popular TV Shows (as determined by IMDb Users).
 The list of top 250 TV shows is scraped from [IMDB](http://www.imdb.com/chart/toptv/) and the data about each show and their respective episodes and cast is pulled from [TV Maze API](http://www.tvmaze.com/api). 
 
@@ -8,7 +8,7 @@ The theme of all analysis performed is focussed on how a new show-maker (produce
 *Note: All code is written in Python3+.*
 
 ## How the data is collected
-----------------------------------------------------------------------
+
 ```
 python collect_data.py
 ```
@@ -17,7 +17,7 @@ This script first scrapes the data from [IMDB top 250 TV shows](http://www.imdb.
 *Note: API call restriction is being already being taken care in script*
 
 ## Analysis
---------------------------------------------------------------------------------------
+
 ### Trend of runtime (air time per episode) of shows for a given Genre & specific date range
 ```
 python analysis_1.py Comedy 2008-01-01 2016-01-01
@@ -61,15 +61,15 @@ python analysis_5.py
 Other than above specific questions. There are many other decisions to be made by a producer.
 * Broadcasting Properties of current TV shows
 This answers what type of channel and on what days of week show can be broadcasted.
-![Fig5a](https://github.com/ngmodani/IMDB_TVShowsAnalysis/blob/master/data/images/analysis_5_broadcast.jpg)
+![Fig5a](https://github.com/ngmodani/IMDB_TVShowsAnalysis/blob/master/data/images/analysis_5_broadcst.jpg)
 
 * Distribution by Country, Language & Category of shows
-This answers what type of show & languauge can be for the show.
+This answers what type of show & languauge & country of broadcast can be for the show.
 ![Fig5b](https://github.com/ngmodani/IMDB_TVShowsAnalysis/blob/master/data/images/analysis_5_distribution.jpg)
 
 * Status of The shows
-A good show is one which stops in time and this analysis tells the sa
-![Fig5c](https://github.com/ngmodani/IMDB_TVShowsAnalysis/blob/master/data/images/analysis_5_status.jpg)
+A good show is one which stops in time and this analysis tells the same.
+![Fig5c](https://github.com/ngmodani/IMDB_TVShowsAnalysis/blob/master/data/images/analysis_5_stat.jpg)
 
 ### Credits
 
