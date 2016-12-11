@@ -8,14 +8,14 @@ The theme of all analysis performed is focussed on how a new show-maker (produce
 *Note: All code is written in Python3+.*
 
 ## How the data is collected
-
 ```
 python collect_data.py
 ```
 This script first scrapes the data from [IMDB top 250 TV shows](http://www.imdb.com/chart/toptv/) and then downloads and organizes the data from [TVMaze](http://www.tvmaze.com/api) in local file system. All the data pulled is in JSON format.
-
+![Fig](https://github.com/ngmodani/IMDB_TVShowsAnalysis/blob/master/data/images/input_files.jpg)
 *Note: API call restriction is being already being taken care in script*
-
+>> Script "analysis_1.py" & "analysis_2.py" takes care of erronous input from user.
+![error](https://github.com/ngmodani/IMDB_TVShowsAnalysis/blob/master/data/images/error.jpg)
 ## Analysis
 
 ### Trend of runtime (air time per episode) of shows for a given Genre & specific date range
@@ -28,8 +28,8 @@ This script takes in 3 inputs :
 * End Date (YYYY-MM-DD)
 
 One major question for a producer, from financial point of view in today's competitive time, is to get air time on TV because every minute of broadast costs fortune.
-This analysis will shows a trend of how the length of episodes have changed over the years and can help in deciding air time for any running or new show.
 ![Fig 1](https://github.com/ngmodani/IMDB_TVShowsAnalysis/blob/master/data/images/analysis_1.jpg)
+This analysis will shows a trend of how the length of episodes have changed over the years and can help in deciding air time for any running or new show.
 
 ### Genre wise Rating for a given Language
 ```
