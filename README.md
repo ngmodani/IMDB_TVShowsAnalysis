@@ -12,10 +12,14 @@ The theme of all analysis performed is focussed on how a new show-maker (produce
 python collect_data.py
 ```
 This script first scrapes the data from [IMDB top 250 TV shows](http://www.imdb.com/chart/toptv/) and then downloads and organizes the data from [TVMaze](http://www.tvmaze.com/api) in local file system. All the data pulled is in JSON format.
+
 ![Fig](https://github.com/ngmodani/IMDB_TVShowsAnalysis/blob/master/data/images/input_files.jpg)
+
 *Note: API call restriction is being already being taken care in script*
->> Script "analysis_1.py" & "analysis_2.py" takes care of erronous input from user.
+
+> Script "analysis_1.py" & "analysis_2.py" takes care of erronous input from user.
 ![error](https://github.com/ngmodani/IMDB_TVShowsAnalysis/blob/master/data/images/error.jpg)
+
 ## Analysis
 
 ### Trend of runtime (air time per episode) of shows for a given Genre & specific date range
@@ -28,7 +32,9 @@ This script takes in 3 inputs :
 * End Date (YYYY-MM-DD)
 
 One major question for a producer, from financial point of view in today's competitive time, is to get air time on TV because every minute of broadast costs fortune.
+
 ![Fig 1](https://github.com/ngmodani/IMDB_TVShowsAnalysis/blob/master/data/images/analysis_1.jpg)
+
 This analysis will shows a trend of how the length of episodes have changed over the years and can help in deciding air time for any running or new show.
 
 ### Genre wise Rating for a given Language
@@ -37,22 +43,28 @@ python analysis_2.py English
 ```
 This script takes in 1 input :
 * Language
-For any producer, <b>Genre</b> is the most important choice to make a TV show. This script shows how for any specific language which genre would be best to work on.
+
+For any producer, <b>Genre</b> is the most important choice to make a TV show. Ratings of existing shows can be a good measure to decide the genre to make a story on.
+
 ![Fig2](https://github.com/ngmodani/IMDB_TVShowsAnalysis/blob/master/data/images/analysis_2.jpg)
+This plot shows how for any specific language what are the ratings for every genre and hence tells us which genre would be best to work on.
 
 ### Size of Cast 
 ```
 python analysis_3.py
 ```
-To make a show, size of cast varies for every type of story. This analysis helps to decide what can be the size of his cast on the basis of Genre and type of broadcast his show can have.
-![Fig3](https://github.com/ngmodani/IMDB_TVShowsAnalysis/blob/master/data/images/analysis_3.jpg)
+To make a show, size of cast varies for every type of story. 
 
+![Fig3](https://github.com/ngmodani/IMDB_TVShowsAnalysis/blob/master/data/images/analysis_3.jpg)
+This analysis helps to decide what can be the size of his cast on the basis of Genre and type of broadcast his show can have.
 ### Length of a Season
 ```
 python analysis_4.py
 ```
-TV shows always had and will always have their makig every year i.e. season-wise. This analysis helps to decide what can be the length of a season for a Genre.
+TV shows always had and will always be made every year i.e. season-wise. 
+
 ![Fig4](https://github.com/ngmodani/IMDB_TVShowsAnalysis/blob/master/data/images/analysis_4.jpg)
+This analysis helps to decide what can be the length of a season for a Genre.
 
 ### Summary of Top Shows
 ```
@@ -60,6 +72,7 @@ python analysis_5.py
 ```
 Other than above specific questions. There are many other decisions to be made by a producer.
 * Broadcasting Properties of current TV shows
+
 This answers what type of channel and on what days of week show can be broadcasted.
 ![Fig5a](https://github.com/ngmodani/IMDB_TVShowsAnalysis/blob/master/data/images/analysis_5_broadcst.jpg)
 
