@@ -22,7 +22,7 @@ This script first scrapes the data from [IMDB top 250 TV shows](http://www.imdb.
 
 ## Analysis
 
-### Trend of runtime (air time per episode) of shows for a given Genre & specific date range
+### Analysis 1 : Trend of runtime (air time per episode) of shows for a given Genre & specific date range
 ```
 python analysis_1.py Comedy 2008-01-01 2016-01-01
 ```
@@ -37,7 +37,7 @@ One major question for a producer, from financial point of view in today's compe
 
 This analysis will shows a trend of how the length of episodes have changed over the years and can help in deciding air time for any running or new show.
 
-### Genre wise Rating for a given Language
+### Analysis 2 : Genre wise Rating for a given Language
 ```
 python analysis_2.py English
 ```
@@ -49,7 +49,7 @@ For any producer, <b>Genre</b> is the most important choice to make a TV show. R
 ![Fig2](https://github.com/ngmodani/IMDB_TVShowsAnalysis/blob/master/data/images/analysis_2.jpg)
 This plot shows how for any specific language what are the ratings for every genre and hence tells us which genre would be best to work on.
 
-### Size of Cast 
+### Analysis 3 : Size of Cast 
 ```
 python analysis_3.py
 ```
@@ -57,7 +57,7 @@ To make a show, size of cast varies for every type of story.
 
 ![Fig3](https://github.com/ngmodani/IMDB_TVShowsAnalysis/blob/master/data/images/analysis_3.jpg)
 This analysis helps to decide what can be the size of his cast on the basis of Genre and type of broadcast his show can have.
-### Length of a Season
+### Analysis 4 : Length of a Season
 ```
 python analysis_4.py
 ```
@@ -66,7 +66,7 @@ TV shows always had and will always be made every year i.e. season-wise.
 ![Fig4](https://github.com/ngmodani/IMDB_TVShowsAnalysis/blob/master/data/images/analysis_4.jpg)
 This analysis helps to decide what can be the length of a season for a Genre.
 
-### Summary of Top Shows
+### Analysis 5 : Summary of Top Shows
 ```
 python analysis_5.py
 ```
