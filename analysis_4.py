@@ -15,7 +15,7 @@ def json_to_df_show(show_path):
         f.close()
     df = json_normalize(file)
     return df
-# function to count avg. no of episodes per season of a show
+# function to read all episode.json & count avg. no of episodes (counting for every season)
 def get_ep_count(ep_path):
     ep = {}
     with open(ep_path,'r') as f:
@@ -34,7 +34,7 @@ folders = [x[0] for x in os.walk("data/tv_shows/")]
 # creating empty DF
 df = pd.DataFrame()
 ep_list = []
-# Converting all jsons to one DF with their episode count
+# Converting all show.json's to one DF after reading their average episode count per season
 for paths in folders[1:]:
     show_path = paths+"/show.json"
     df_temp = json_to_df_show(show_path)
@@ -45,7 +45,7 @@ df['ep_count'] = ep_list
 
 # reindexing
 df.index = range(len(df))
-
+# delisting genres to string separated by "|"
 df['genres']= df['genres'].apply(lambda x: '|'.join(x))
 unique_genre = set()
 for genre in df.genres.values :
@@ -56,7 +56,7 @@ all_genre = list(unique_genre)
 df_analysis_4 = pd.concat([df.genres,df.ep_count,df['rating.average'].dropna()],axis=1)
 df_analysis_4 = df_analysis_4[df_analysis_4.genres!=""]
 unique_genre = set(all_genre)
-# Analysing the question now
+# Preprocessing complete , Analysing the data now
 genre_wise = []
 while unique_genre:
     genr = unique_genre.pop()
@@ -82,14 +82,14 @@ ax.tick_params(axis='x', which='major',labelsize=13)
 ax.tick_params(axis='y', which='major',labelsize=15)
 ax.set_ylabel("No. of Episodes")
 
-# making the directory
+# making the reqd. directory
 if os.path.isdir("output/analysis_4")==False:
     os.mkdir("output/analysis_4")
 # saving the graph
 file_name = "output/analysis_4/analysis_4_"+str(pd.datetime.now())+".png"
 fig = ax.get_figure()
 fig.savefig(file_name)
-#fig.savefig('data/images/analysis_2.jpg')
+# Saving CSV file
 csv_name = "output/analysis_4/analysis_4_"+str(pd.datetime.now())+".csv"
 df_gw.to_csv(csv_name,sep=',',index=False)
 

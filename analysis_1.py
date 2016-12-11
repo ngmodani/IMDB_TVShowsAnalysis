@@ -28,7 +28,7 @@ def json_to_df_show(path):
     df = json_normalize(file)
     return df
 
-# Accessing all tv_shows
+# Accessing all show.json from every folder
 folders = [x[0] for x in os.walk("data/tv_shows/")]
 # creating empty DF
 df = pd.DataFrame()
@@ -40,7 +40,7 @@ for paths in folders[1:]:
 
 # reindexing
 df.index = range(len(df))
-
+# changing datatype of column
 df['premiered'] = pd.to_datetime(df['premiered'])
 # creating dummy variables for all genres
 df['genres']= df['genres'].apply(lambda x: '|'.join(x))
@@ -51,8 +51,10 @@ for genre in unique_genre :
     df[genre]=0
 for genre in unique_genre : 
     df.ix[df.ix[:,'genres'].str.contains(genre),genre] = 1
-# doing Analysis and then Plotting and then saving the plot 
+
+# error handling if loop
 if genre_select in unique_genre:
+    # extracting data for user inputted genre
     df_required = df[df[genre_select]==1]
     df_required = pd.concat([df_required.premiered,df_required.runtime],axis=1)
     fig = plt.figure()
@@ -60,18 +62,21 @@ if genre_select in unique_genre:
     df_required.plot(x='premiered',y="runtime",ax=ax)
     ax.set_ylabel("Mins")
     ax.set_xlabel("Premier")
+    # Taking care of date range user inputted
     ax.set_xlim([start_date, end_date]) 
-    #ax.set_ylim([0, 150])
     ax.set_title('Year-wise runtime of shows for "'+genre_select +'" genre')
     ax.set_autoscale_on(True)
-    # save image of the plot
+    # making required directories
     if os.path.isdir("output/analysis_1")==False:
           os.mkdir("output/analysis_1")
+    # save image of the plot
     file_name = "output/analysis_1/analysis_1_"+str(pd.datetime.now())+".png"
     fig.savefig(file_name)
+    # saving CSV file
     csv_name = "output/analysis_1/analysis_1_"+str(pd.datetime.now())+".csv"
     df_required.to_csv(csv_name,sep=',',index=False)
 else:
+    # Error message in case of wrong input
     print("Invalid Genre. Please type from following options:")
     out_error = [print(x) for x in unique_genre if len(x)>1]
 

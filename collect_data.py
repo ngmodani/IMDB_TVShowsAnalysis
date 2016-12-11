@@ -15,6 +15,7 @@ for link in soup.find_all('a'):
     if str(href).startswith("/title/tt"):
         get_imdb_id = href.split('/')
         tv_show_imdb_ids.append(get_imdb_id[2])
+
 # list of unique IMDB IDs
 tv_show_imdb_ids = list(set(tv_show_imdb_ids))
 
@@ -26,6 +27,7 @@ if os.path.isdir("data/tv_shows")==False:
 if os.path.isdir("output")==False:
     os.mkdir("output")
 
+# Making TV Maze API calls to download Data
 count = 0
 for imdb_id in tv_show_imdb_ids:
     payload={}

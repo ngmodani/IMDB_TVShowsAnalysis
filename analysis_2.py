@@ -26,7 +26,7 @@ def json_to_df_show(path):
     df = json_normalize(file)
     return df
 
-# Accessing all tv_shows
+# Accessing all show.json from every folder
 folders = [x[0] for x in os.walk("data/tv_shows/")]
 # creating empty DF
 df = pd.DataFrame()
@@ -38,10 +38,11 @@ for paths in folders[1:]:
 
 # reindexing
 df.index = range(len(df))
-# checking by if-loop, whether user input correct or not
+# Extracting all unique Languages available
 unique_lang = set(df.language.values)
+# checking by if-loop, whether user input correct or not
 if language_select in unique_lang:
-       # creating dummy variables for all genres
+       # delisting genres to string separated by "|"
        df['genres']= df['genres'].apply(lambda x: '|'.join(x))
        unique_genre = set()
        for genre in df.genres.values :
@@ -51,16 +52,18 @@ if language_select in unique_lang:
        df_analysis_2 = pd.concat([df.genres,df['rating.average'],df.language],axis=1)
        # selecting data only for user inputted language
        df_analysis_2 = df_analysis_2[df_analysis_2.language==language_select]
+       # removing empty rows
        df_analysis_2 = df_analysis_2[df_analysis_2.genres!=""]
        df_analysis_2 = df_analysis_2[df_analysis_2['rating.average'].notnull()]
        del df_analysis_2['language']
        unique_genre.remove("")
        genre_wise =[]
-       # calculating Genre wise rating
+       # calculating Average genre wise rating
        while unique_genre:
            genr = unique_genre.pop()
            record=[]
            record.append(genr)
+           # average calculation 
            record.append(df_analysis_2[df_analysis_2.genres.str.contains(genr)]['rating.average'].mean())
            genre_wise.append(record)
 
@@ -78,16 +81,17 @@ if language_select in unique_lang:
        ax.tick_params(axis='y', which='major',labelsize=20)
        ax.set_ylim(7,10)
        ax.set_ylabel("Avg. Rating")
-       # making the folder
+       # making required directories
        if os.path.isdir("output/analysis_2")==False:
           os.mkdir("output/analysis_2")
-      # saving the graph
+      # saving image of the plot
        file_name = "output/analysis_2/analysis_2_"+str(pd.datetime.now())+".png"
        fig = ax.get_figure()
        fig.savefig(file_name)
-       #fig.savefig('data/images/analysis_2.jpg')
+       # saving CSV file
        csv_name = "output/analysis_2/analysis_2_"+str(pd.datetime.now())+".csv"
        df_genre_wise.to_csv(csv_name,sep=',',index=False)
 else:
+    # Error message in case of wrong input
        print("Invalid language. Please type from following options:")
        out_error = [print(x) for x in unique_lang]

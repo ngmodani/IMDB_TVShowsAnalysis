@@ -1,4 +1,3 @@
-
 import seaborn as sns
 import os,json
 import pandas as pd
@@ -15,7 +14,7 @@ def json_to_df_show(show_path):
         f.close()
     df = json_normalize(file)
     return df
-# function to count cast members of a show
+# function to read cast.json file & count cast members of a show
 def get_cast_count(cast_path):
     cast = {}
     with open(cast_path,'r') as f_c:
@@ -23,12 +22,12 @@ def get_cast_count(cast_path):
         f_c.close()
     return len(cast)
     
-# Accessing all tv_shows
+# Accessing all tv_shows folder
 folders = [x[0] for x in os.walk("data/tv_shows/")]
 # creating empty DF
 df = pd.DataFrame()
 cast_list = []
-# Converting all jsons to one DF with their cast count
+# Converting all show.json's to one DF and appending their cast count
 for paths in folders[1:]:
     show_path = paths+"/show.json"
     df_temp = json_to_df_show(show_path)
@@ -39,7 +38,7 @@ df['cast_count'] = cast_list
 
 # reindexing
 df.index = range(len(df))
-# Extracting channel type Web or not
+# Extracting channel type Web or TV
 channel_type = []
 for network in  df['webChannel.name']:
     if type(network) == type("check"):
@@ -49,19 +48,22 @@ for network in  df['webChannel.name']:
 df['channel_type'] = channel_type
 
 df_analysis_3 = pd.concat([df.genres,df.cast_count,df.channel_type],axis=1)
-
+# delisting genres to string separated by "|"
 df_analysis_3['genres']= df_analysis_3['genres'].apply(lambda x: '|'.join(x))
 unique_genre = set()
+# making a set of unique genres
 for genre in df_analysis_3.genres.values :
     unique_genre.update(genre.split("|"))
 
-# Analysing the question now
+
+# removing empty rows
 df_analysis_3 = df_analysis_3[df_analysis_3.genres!=""]
 unique_genre.remove("")
 all_genre = list(unique_genre)
 df_web = df_analysis_3[df_analysis_3.channel_type=='Web']
 df_tv = df_analysis_3[df_analysis_3.channel_type=='TV']
 
+# calculating Average genre wise cast count for 
 genre_wise = []
 while unique_genre:
     genr = unique_genre.pop()
@@ -95,13 +97,13 @@ ax.tick_params(axis='y', which='major',labelsize=15)
 #ax.set_ylim(7,10)
 ax.set_ylabel("Avg. Cast Members")
 plt.legend(loc=0,title="Channel Type")
-# making the directory
+# making the reqd. directory
 if os.path.isdir("output/analysis_3")==False:
     os.mkdir("output/analysis_3")
 # saving the graph
 file_name = "output/analysis_3/analysis_3_"+str(pd.datetime.now())+".png"
 fig = ax.get_figure()
 fig.savefig(file_name)
-#fig.savefig('data/images/analysis_2.jpg')
+# saving CSV file
 csv_name = "output/analysis_3/analysis_3_"+str(pd.datetime.now())+".csv"
 df_genre_wise.to_csv(csv_name,sep=',',index=False)

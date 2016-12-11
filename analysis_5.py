@@ -6,7 +6,7 @@ from pandas.io.json import json_normalize
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from pylab import *
-
+# function to convert json to dataFrame
 def json_to_df_show(path):
     file = {}
     with open(path,'r') as f:
@@ -15,7 +15,7 @@ def json_to_df_show(path):
     df = json_normalize(file)
     return df
 
-#test = os.walk("data/tv_shows")
+# Accessing all show.json from every folder
 folders = [x[0] for x in os.walk("data/tv_shows/")]
 df = pd.DataFrame()
 for paths in folders[1:]:
@@ -60,7 +60,7 @@ df_days_new = pd.DataFrame(no_of_days,columns=["Weekly_Frequency","on_Weekend"])
 df = pd.concat([df,df_days_new],axis=1)
 del df['schedule.days']
 
-# extracting channels and countries and web or not
+# extracting channels type web or not and countries of TV shows
 df_network = pd.concat([df['network.country.code'],df['network.country.name'],
                         df['network.name'],df['webChannel.country.code'],
                         df['webChannel.country.name'],df['webChannel.name']],axis = 1)
@@ -129,17 +129,17 @@ sizes = df_status.Count.tolist()
 colors = ['yellowgreen', 'green','yellow']
 explode = [0.1,0,0.1]
 
-# making the directory
+# making the reqd. directory
 if not os.path.isdir("output/analysis_5"):
     os.mkdir("output/analysis_5")
 
-#Create figure and axis
+# Create figure and axis
 fg,ax = plt.subplots(1,1,figsize=(25,12),sharex=True)
 ax.pie(sizes, labels=labels, colors=colors, shadow=True, explode=explode,autopct='%1.1f%%', startangle=90, radius=0.40)
 ax.set_title('Current Status of Top Shows')
-#plt.subplots_adjust(wspace=0, hspace=0)
+# Save image & its CSV
 plt.savefig("output/analysis_5/analysis_5_status_"+str(pd.datetime.now())+".png", bbox_inches='tight')
-
+# Save CSV image 
 csv_name = "output/analysis_5/analysis_5_status_"+str(pd.datetime.now())+".csv"
 df_status.to_csv(csv_name,sep=',',index=False)
 
@@ -158,7 +158,8 @@ ax[0].pie(size_w, labels=label_w, colors=colors, shadow=True, explode=explode, a
 ax[0].set_title('% of Shows Broadcasted on Weekend')
 ax[1].pie(size_c, labels=label_c, colors=colors, shadow=True, explode=explode, autopct='%1.1f%%', startangle=90, radius=0.40)
 ax[1].set_title('% of Shows Broadcasted on Web')
-#plt.subplots_adjust(wspace=0, hspace=0)
+
+# Save image & its CSV
 plt.savefig("output/analysis_5/analysis_5_broadcast_"+str(pd.datetime.now())+".png", bbox_inches='tight')
 
 csv_name = "output/analysis_5/analysis_5_broadcast_web_"+str(pd.datetime.now())+".csv"
@@ -201,7 +202,7 @@ ax3.tick_params(axis='x', which='major',labelsize=10)
 ax3.tick_params(axis='y', which='major',labelsize=15)
 ax3.set_ylabel("Count")
 ax3.set_xlabel("Category")
-
+# Save image & its CSV
 fg.savefig("output/analysis_5/analysis_5_distribution_"+str(pd.datetime.now())+".png", bbox_inches='tight')
 
 csv_name = "output/analysis_5/analysis_5_distribution_country_"+str(pd.datetime.now())+".csv"
